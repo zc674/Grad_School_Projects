@@ -1,0 +1,5 @@
+df=spark.read.parquet("hdfs:/user/el2986/indexed_train.parquet")
+dfnew=df.filter(df["count"]>1)
+dfnew.select("count","user_idx","item_idx").write.save("./dropped_indexed_train.parquet")
+dfnew2=df.na.replace(1, 0)
+dfnew2.select("count","user_idx","item_idx").write.save(“./replaced_indexed_train.parquet")
